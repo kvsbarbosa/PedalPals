@@ -1,13 +1,13 @@
-package com.kvsb.csmvc;
+package com.kvsb.pp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CsmvcApplication {
+public class PpApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CsmvcApplication.class, args);
+		SpringApplication.run(PpApplication.class, args);
 	}
 
 }
