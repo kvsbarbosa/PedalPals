@@ -11,5 +11,7 @@ public interface ClubService {
 
     List<ClubDTO> findAllClubs();
     Club save(Club club);
+    ClubDTO findClubById(Long id);
 
+    void updateClub(ClubDTO clubDTO);
 }

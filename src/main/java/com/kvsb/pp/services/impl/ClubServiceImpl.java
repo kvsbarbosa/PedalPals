@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,6 +28,29 @@ public class ClubServiceImpl implements ClubService {
         return repository.save(club);
     }
 
+    public ClubDTO findClubById(Long clubId) {
+        Club club = repository.findById(clubId).get();
+        return mapToClubDTO(club);
+    }
+
+    @Override
+    public void updateClub(ClubDTO clubDTO) {
+        Club club = mapToClub(clubDTO);
+        repository.save(club);
+    }
+
+    private Club mapToClub(ClubDTO club) {
+        Club clubDTO = Club.builder()
+                .id(club.getId())
+                .title(club.getTitle())
+                .photoUrl(club.getPhotoUrl())
+                .content(club.getContent())
+                .createdOn(club.getCreatedOn())
+                .updatedOn(club.getUpdatedOn())
+                .build();
+        return clubDTO;
+    }
+
     private ClubDTO mapToClubDTO(Club club) {
         ClubDTO clubDTO = ClubDTO.builder()
                 .id(club.getId())
@@ -34,7 +58,7 @@ public class ClubServiceImpl implements ClubService {
                 .photoUrl(club.getPhotoUrl())
                 .content(club.getContent())
                 .createdOn(club.getCreatedOn())
-                .updateOn(club.getUpdateOn())
+                .updatedOn(club.getUpdatedOn())
                 .build();
         return clubDTO;
     }

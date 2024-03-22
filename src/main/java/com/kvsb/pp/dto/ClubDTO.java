@@ -18,6 +18,6 @@ public class ClubDTO {
     private String photoUrl;
     private String content;
     private LocalDateTime createdOn;
-    private LocalDateTime updateOn;
+    private LocalDateTime updatedOn;
 
 }
