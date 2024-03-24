@@ -7,9 +7,14 @@ import com.kvsb.pp.services.ClubService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kvsb.pp.mappers.ClubMapper;
+
 import java.util.List;
-import java.util.Optional;
+
 import java.util.stream.Collectors;
+
+import static com.kvsb.pp.mappers.ClubMapper.mapToClub;
+import static com.kvsb.pp.mappers.ClubMapper.mapToClubDTO;
 
 @Service
 public class ClubServiceImpl implements ClubService {
@@ -51,27 +56,4 @@ public class ClubServiceImpl implements ClubService {
         return clubs.stream().map(club -> mapToClubDTO(club)).collect(Collectors.toList());
     }
 
-    private Club mapToClub(ClubDTO club) {
-        Club clubDTO = Club.builder()
-                .id(club.getId())
-                .title(club.getTitle())
-                .photoUrl(club.getPhotoUrl())
-                .content(club.getContent())
-                .createdOn(club.getCreatedOn())
-                .updatedOn(club.getUpdatedOn())
-                .build();
-        return clubDTO;
-    }
-
-    private ClubDTO mapToClubDTO(Club club) {
-        ClubDTO clubDTO = ClubDTO.builder()
-                .id(club.getId())
-                .title(club.getTitle())
-                .photoUrl(club.getPhotoUrl())
-                .content(club.getContent())
-                .createdOn(club.getCreatedOn())
-                .updatedOn(club.getUpdatedOn())
-                .build();
-        return clubDTO;
-    }
 }

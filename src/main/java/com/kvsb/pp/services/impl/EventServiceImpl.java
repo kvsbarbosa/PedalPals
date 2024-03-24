@@ -9,6 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.kvsb.pp.entities.Club;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static com.kvsb.pp.mappers.EventMapper.mapToEvent;
+import static com.kvsb.pp.mappers.EventMapper.mapToEventDTO;
+
 @Service
 public class EventServiceImpl implements EventService {
 
@@ -26,16 +32,10 @@ public class EventServiceImpl implements EventService {
         eventRepository.save(event);
     }
 
-    private Event mapToEvent(EventDTO eventDTO) {
-        return Event.builder()
-                .id(eventDTO.getId())
-                .name(eventDTO.getName())
-                .startTime(eventDTO.getStartTime())
-                .endTime(eventDTO.getEndTime())
-                .type(eventDTO.getType())
-                .photoUrl(eventDTO.getPhotoUrl())
-                .createdOn(eventDTO.getCreatedOn())
-                .updatedOn(eventDTO.getUpdatedOn())
-                .build();
+    @Override
+    public List<EventDTO> findAllEvents() {
+        List<Event> events = eventRepository.findAll();
+        return events.stream().map(event -> mapToEventDTO(event)).collect(Collectors.toList());
     }
 }
+
