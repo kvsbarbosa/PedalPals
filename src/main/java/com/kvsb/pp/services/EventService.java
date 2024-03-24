@@ -13,4 +13,6 @@ public interface EventService {
     List<EventDTO> findAllEvents();
 
     EventDTO findByEventId(Long eventId);
+
+    void updateEvent(EventDTO eventDTO);
 }

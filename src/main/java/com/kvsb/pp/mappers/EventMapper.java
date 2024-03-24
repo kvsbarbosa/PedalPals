@@ -17,6 +17,7 @@ public class EventMapper {
                 .photoUrl(eventDTO.getPhotoUrl())
                 .createdOn(eventDTO.getCreatedOn())
                 .updatedOn(eventDTO.getUpdatedOn())
+                .club(eventDTO.getClub())
                 .build();
     }
     public static EventDTO mapToEventDTO(Event event) {
@@ -29,6 +30,7 @@ public class EventMapper {
                 .photoUrl(event.getPhotoUrl())
                 .createdOn(event.getCreatedOn())
                 .updatedOn(event.getUpdatedOn())
+                .club(event.getClub())
                 .build();
     }
 

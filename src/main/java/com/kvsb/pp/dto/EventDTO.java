@@ -1,5 +1,6 @@
 package com.kvsb.pp.dto;
 
+import com.kvsb.pp.entities.Club;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,5 +25,6 @@ public class EventDTO {
     private String photoUrl;
     private LocalDateTime createdOn;
     private LocalDateTime updatedOn;
+    private Club club;
 
 }
