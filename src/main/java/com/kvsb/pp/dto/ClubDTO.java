@@ -1,5 +1,6 @@
 package com.kvsb.pp.dto;
 
+import com.kvsb.pp.entities.UserEntity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -22,6 +23,7 @@ public class ClubDTO {
     private String photoUrl;
     @NotEmpty(message = "Content should not be empty.")
     private String content;
+    private UserEntity createdBy;
     private LocalDateTime createdOn;
     private LocalDateTime updatedOn;
     private List<EventDTO> events;

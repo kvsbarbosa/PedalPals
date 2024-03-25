@@ -2,7 +2,10 @@ package com.kvsb.pp.services.impl;
 
 import com.kvsb.pp.dto.ClubDTO;
 import com.kvsb.pp.entities.Club;
+import com.kvsb.pp.entities.UserEntity;
 import com.kvsb.pp.repositories.ClubRepository;
+import com.kvsb.pp.repositories.UserRepository;
+import com.kvsb.pp.security.SecurityUtil;
 import com.kvsb.pp.services.ClubService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +25,9 @@ public class ClubServiceImpl implements ClubService {
     @Autowired
     private ClubRepository repository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @Override
     public List<ClubDTO> findAllClubs() {
         List<Club> clubs = repository.findAll();
@@ -30,7 +36,10 @@ public class ClubServiceImpl implements ClubService {
 
     @Override
     public Club save(ClubDTO clubDTO) {
+        String username = SecurityUtil.getSessionUser();
+        UserEntity user = userRepository.findByUsername(username);
         Club club = mapToClub(clubDTO);
+        club.setCreatedBy(user);
         return repository.save(club);
     }
 
@@ -41,7 +50,10 @@ public class ClubServiceImpl implements ClubService {
 
     @Override
     public void updateClub(ClubDTO clubDTO) {
+        String username = SecurityUtil.getSessionUser();
+        UserEntity user = userRepository.findByUsername(username);
         Club club = mapToClub(clubDTO);
+        club.setCreatedBy(user);
         repository.save(club);
     }
 
