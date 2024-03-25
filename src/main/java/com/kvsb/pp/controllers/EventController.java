@@ -3,6 +3,10 @@ package com.kvsb.pp.controllers;
 import com.kvsb.pp.dto.ClubDTO;
 import com.kvsb.pp.dto.EventDTO;
 import com.kvsb.pp.entities.Event;
+import com.kvsb.pp.entities.UserEntity;
+import com.kvsb.pp.security.SecurityUtil;
+import com.kvsb.pp.services.ClubService;
+import com.kvsb.pp.services.UserService;
 import com.kvsb.pp.services.impl.EventServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +25,10 @@ public class EventController {
 
     @Autowired
     private EventServiceImpl service;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private ClubService clubService;
 
     @GetMapping("/events/{clubId}/new")
     public String createEventForm(@PathVariable("clubId") Long clubId, Model model) {
@@ -44,14 +52,29 @@ public class EventController {
 
     @GetMapping("/events")
     public String eventList(Model model) {
+        UserEntity user = new UserEntity();
         List<EventDTO> events = service.findAllEvents();
+        String username = SecurityUtil.getSessionUser();
+        if(username != null) {
+            user = userService.findByUsername(username);
+            model.addAttribute("user", user);
+        }
+        model.addAttribute("user", user);
         model.addAttribute("events", events);
         return "events-list";
     }
 
     @GetMapping("/events/{eventId}")
     public String viewEvent(@PathVariable("eventId") Long eventId, Model model) {
+        UserEntity user = new UserEntity();
         EventDTO eventDTO = service.findByEventId(eventId);
+        String username = SecurityUtil.getSessionUser();
+        if(username != null) {
+            user = userService.findByUsername(username);
+            model.addAttribute("user", user);
+        }
+        model.addAttribute("club", eventDTO.getClub());
+        model.addAttribute("user", user);
         model.addAttribute("event", eventDTO);
         return "events-detail";
     }
